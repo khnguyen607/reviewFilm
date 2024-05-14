@@ -45,4 +45,21 @@ class MovieModel extends BaseModel
         return $data;
     }
 
+    public function mGetGenres($id)
+    {
+        $sql = "SELECT genres.*
+                FROM `genres`
+                INNER JOIN syn_movies_genres ON genres.ID = syn_movies_genres.genreID
+                INNER JOIN movies ON syn_movies_genres.movieID = movies.ID
+                WHERE syn_movies_genres.movieID = $id";
+        $query = $this->_query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            array_push($data, $row);
+        }
+
+        return $data;
+    }
+
 }

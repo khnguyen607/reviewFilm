@@ -75,6 +75,15 @@ class MovieController extends BaseController
         echo json_encode($data);
     }
 
+    public function getGenres()
+    {
+        $id = $_GET['id'];
+        $data = $this->model->mGetGenres($id);
+        // Trả về dữ liệu dưới dạng JSON
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
     private function saveFile()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['Img'])) {

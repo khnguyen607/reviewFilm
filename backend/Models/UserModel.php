@@ -52,7 +52,7 @@ class UserModel extends BaseModel
     // public function mUpdate($id, $data)
     // {
     //     $user = [
-    //         'UserName' => $data['UserName'],
+    //         'Username' => $data['Username'],
     //         'Password' => $data['currentpass']
     //     ];
     //     if (!$this->isValidUser($user)) return False;
@@ -60,7 +60,7 @@ class UserModel extends BaseModel
 
     //     $user = [
     //         'Name'  =>  $data['Name'],
-    //         'UserName'  =>  $data['UserName'],
+    //         'Username'  =>  $data['Username'],
     //         'Password'  =>  $data['Password']
     //     ];
 
@@ -76,10 +76,10 @@ class UserModel extends BaseModel
         return $user;
     }
 
-    // Kiểm tra username tồn tại hay chưa
+    // Kiểm tra Username tồn tại hay chưa
     public function checkuser_name($user)
     {
-        $sql = "SELECT `UserName` FROM `users` WHERE UserName = '$user'";
+        $sql = "SELECT `Username` FROM `users` WHERE Username = '$user'";
         $check = mysqli_fetch_assoc($this->_query($sql));
         return (isset($check) ? False : True);
     }
@@ -87,11 +87,11 @@ class UserModel extends BaseModel
     // Kiểm tra tính hợp lệ tài khoản
     public function isValidUser($data)
     {
-        $user = $data['UserName'];
+        $user = $data['Username'];
         $pass = $data['Password'];
 
         $table = self::TABLE;
-        $sql = "SELECT * FROM `$table` WHERE UserName = '$user' LIMIT 1";
+        $sql = "SELECT * FROM `$table` WHERE Username = '$user' LIMIT 1";
         $user = mysqli_fetch_assoc($this->_query($sql));
         if (!isset($user)) return False;
         if (!$this->checkPassword($pass, $user['Password'])) return False;

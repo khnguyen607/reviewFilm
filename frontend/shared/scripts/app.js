@@ -78,3 +78,5 @@ class Helper {
         return this.backendLink + "www/" + link
     }
 }
+
+Helper.fetchBackendLink();

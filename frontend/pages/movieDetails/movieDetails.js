@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
     // Khởi tạo trang
     _init();
+    _getGenres();
     // Đặt bình luận
     // _getComments();
     // _sendComment();
@@ -8,12 +9,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function _init() {
     var item = await Helper.fetchData(`movie&action=find&id=${Helper.getParameter("id")}`)
-    document.querySelector(".bd-hd").textContent = capitalizeFirst(item.Name)
+    document.querySelector(".bd-hd").innerHTML = capitalizeFirst(item.Name) + ` <span>${item.ReleaseYear}</span>`
     document.querySelector(".movie-img img").src = Helper.getLink(item.Img)
-    document.querySelector(".product-info ._Subtitle").textContent = item.Subtitle
-    document.querySelector(".product_description_wrap .product_desc").innerHTML = item.Description
-    document.querySelector("._imgProduct a").href = Helper.getLink(item.Img)
-    document.querySelector("._productPrice .new-price").textContent = (item.Price * 1000).toLocaleString("vi-VN") + "₫"
+    document.querySelector("#overview .col-md-8 p").textContent = item.Overview
+    document.querySelector("._ratePoint").textContent = item.Rate
+}
+
+async function _getGenres() {
+    var items = await Helper.fetchData(`movie&action=getGenres&id=${Helper.getParameter("id")}`)
+    var genres = "";
+    items.forEach(item => {
+        genres += (item.Name + ', ')
+    })
+    if (genres) {
+        genres = genres.slice(0, -2)
+    }
+    console.log(genres);
+    document.querySelector("._movieGenres").textContent = genres
 }
 
 async function _getComments() {

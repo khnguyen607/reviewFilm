@@ -33,24 +33,14 @@ class UserController extends BaseController
     {
         $data = [
             'Name'  => $_POST['Name'],
-            'UserName'  => $_POST['UserName'],
+            'Username'  => $_POST['Username'],
             'Password'  => $_POST['Password'],
         ];
-        if (isset($_POST['Email']) && isset($_POST['Role'])) {
-            $data['Role'] = $_POST['Role'];
-            $data['Email'] = $_POST['Email'];
-        }
-        if (isset($_POST['Address']) && isset($_POST['Phone'])) {
-            $data['Address'] = $_POST['Address'];
-            $data['Phone'] = $_POST['Phone'];
-        }
-        if ($this->model->checkuser_name($data['UserName'])) {
+        if ($this->model->checkuser_name($data['Username'])) {
             $this->model->mInsert($data);
             echo "true";
-            if(!isset($_POST['Role'])) header("Location: ../frontend/client/?page=login&signupSuccfully=true");
         } else {
             echo "false";
-            if(!isset($_POST['Role'])) header("Location: ../frontend/client/?page=login&signupFailed=true");
         }
     }
 
@@ -77,15 +67,15 @@ class UserController extends BaseController
     public function login()
     {
         $data = [
-            'UserName'  => $_POST['UserName'],
+            'Username'  => $_POST['Username'],
             'Password'  => $_POST['Password']
         ];
 
         $check = $this->model->isValidUser($data);
         if ($check) {
-            header("Location: ../frontend/client/?loginSuccfully=true");
+            echo "true";
         } else {
-            header("Location: ../frontend/client/?page=login&loginFailed=" . $data['UserName']);
+            echo "false";
         }
     }
 
@@ -103,7 +93,8 @@ class UserController extends BaseController
         echo json_encode($role);
     }
 
-    public function changeInfo() {
+    public function changeInfo()
+    {
         $id = $_GET['id'];
         if (isset($_POST['Password']) && ($_POST['Password'] != "")) $data['Password'] = $_POST['Password'];
         if (isset($_POST['Email']) && ($_POST['Email'] != "")) $data['Email'] = $_POST['Email'];

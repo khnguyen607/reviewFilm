@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
+    // await Helper.fetchBackendLink();
     // Đổ danh sách sản phẩm
     _init();
 })

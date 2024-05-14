@@ -1,7 +1,6 @@
-async function runMain() {
+document.addEventListener('DOMContentLoaded', async () => {
     _selectNav()
-
-}
+})
 
 async function _selectNav() {
     document.querySelectorAll("main li.navActive").forEach(item => {
@@ -14,5 +13,3 @@ async function _selectNav() {
         })
     })
 }
-
-runMain()

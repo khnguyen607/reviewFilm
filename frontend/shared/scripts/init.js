@@ -1,7 +1,7 @@
 _setEffect();
-Helper.fetchBackendLink()
 document.addEventListener('DOMContentLoaded', async () => {
     await _getLayouts();
+    _authentication()
 })
 
 async function _getLayouts() {
@@ -13,10 +13,11 @@ async function _getLayouts() {
         document.querySelector("footer.ht-footer").innerHTML = components.querySelector("footer.ht-footer").innerHTML;
         document.querySelector("#login-content").innerHTML = components.querySelector("#login-content").innerHTML;
         document.querySelector("#signup-content").innerHTML = components.querySelector("#signup-content").innerHTML;
-        
+
         addScript("assets/js/custom.js")
 
         var page = Helper.getParameter('page')
+        // addScript(`pages/${page}/${page}.js`)
         if (page && page != "home") {
             document.querySelector(`#bs-example-navbar-collapse-1 a[href='./?page=movies']`).parentNode.classList.add('active')
         } else {
@@ -25,6 +26,58 @@ async function _getLayouts() {
     } catch (error) {
         console.error('Error loading HTML:', error);
     }
+}
+
+async function _authentication() {
+    document.querySelector("#signup-content form").addEventListener('submit', async (evt) => {
+        evt.preventDefault();
+        // Tạo một đối tượng FormData và thêm dữ liệu vào đó
+        const formData = new FormData(document.querySelector("#signup-content form"));
+
+        // Tạo một yêu cầu fetch với phương thức POST và dữ liệu FormData trong phần thân
+        fetch(Helper.backendLink + "?controller=user&action=insert", {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    alert('Successfully')
+                    location.reload()
+                } else {
+                    alert('Username already exists!')
+                }
+            })
+            .catch(error => {
+                alert('Account creation failed!')
+                console.error(error);
+            });
+    })
+
+    document.querySelector("#login-content form").addEventListener('submit', async (evt) => {
+        evt.preventDefault();
+        // Tạo một đối tượng FormData và thêm dữ liệu vào đó
+        const formData = new FormData(document.querySelector("#login-content form"));
+
+        // Tạo một yêu cầu fetch với phương thức POST và dữ liệu FormData trong phần thân
+        fetch(Helper.backendLink + "?controller=user&action=login", {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    alert('Successfully')
+                    location.reload()
+                } else {
+                    alert('Invalid username or password!')
+                }
+            })
+            .catch(error => {
+                alert('Login failed!')
+                console.error(error);
+            });
+    })
 }
 
 async function _setEffect() {
