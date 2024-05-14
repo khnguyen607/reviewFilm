@@ -48,6 +48,7 @@
     } else {
         header("Location: shared/components/404.html");
     }
+    echo "<script src='pages/$page/$page.js'></script>";
     ?>
     <!-- main body end -->
 

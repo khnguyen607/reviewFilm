@@ -1,8 +1,20 @@
 // Hàm dùng chung
 class Helper {
+    static backendLink = null;
+    static async fetchBackendLink() {
+        try {
+            const response = await fetch("conf.json");
+            const data = await response.json();
+            this.backendLink = data.backend;
+        } catch (error) {
+            console.error("Error:", error);
+            this.backendLink = null;
+        }
+    }
+
     // Lấy dữ liệu từ BackEnd
     static async fetchData(controller) {
-        return fetch('../../backEnd/index.php?controller=' + controller)
+        return fetch(this.backendLink + '?controller=' + controller)
             .then(response => response.json())
             .then(data => {
                 return data;
@@ -63,6 +75,6 @@ class Helper {
 
     // Lấy hình ảnh trong backend
     static getLink(link) {
-        return window.location.origin + "/backend/www/" + link
+        return this.backendLink + "www/" + link
     }
 }

@@ -1,7 +1,8 @@
 _setEffect();
-
+Helper.fetchBackendLink()
 document.addEventListener('DOMContentLoaded', async () => {
-    await _getLayouts();})
+    await _getLayouts();
+})
 
 async function _getLayouts() {
     try {
@@ -12,11 +13,10 @@ async function _getLayouts() {
         document.querySelector("footer.ht-footer").innerHTML = components.querySelector("footer.ht-footer").innerHTML;
         document.querySelector("#login-content").innerHTML = components.querySelector("#login-content").innerHTML;
         document.querySelector("#signup-content").innerHTML = components.querySelector("#signup-content").innerHTML;
+        
         addScript("assets/js/custom.js")
 
         var page = Helper.getParameter('page')
-        addScript(`pages/${page}/${page}.js`)
-
         if (page && page != "home") {
             document.querySelector(`#bs-example-navbar-collapse-1 a[href='./?page=movies']`).parentNode.classList.add('active')
         } else {
