@@ -78,25 +78,39 @@ async function _authentication() {
                 console.error(error);
             });
     })
+
+    var checkUser = Helper.getCookie('user_id')
+    if (checkUser) {
+        document.querySelector(".menu-right").innerHTML = `
+            <li><a onclick="Helper.fetchData('user&action=logout'); location.reload()">Logout</a></li>
+            <li class="btn"><a href="./?page=user">My profile</a></li>
+        `
+    } else {
+        document.querySelector(".menu-right").innerHTML = `
+            <li class="loginLink"><a href="#">LOGIn</a></li>
+            <li class="btn signupLink"><a href="#">sign up</a></li>
+        `
+    }
 }
 
 async function _setEffect() {
     var style = document.createElement('style')
     style.innerHTML = `        
-    main {
+    body {
         opacity: 0;
         /* Apply transition effect to opacity property */
         transition: opacity 0.5s ease-in-out;
     }
-    main.show {
+    body.show {
         opacity: 1;
     }
     `
     document.head.appendChild(style)
-    document.addEventListener("DOMContentLoaded", function () {
-        var main = document.querySelector("main");
-        main.classList.add("show"); // Add the "show" class to trigger the animation
-    });
+
+    setTimeout(function () {
+        var body = document.querySelector("body");
+        body.classList.add("show");
+    }, 100);
 }
 
 async function addScript(script) {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th5 14, 2024 lúc 12:01 PM
+-- Thời gian đã tạo: Th5 15, 2024 lúc 04:29 AM
 -- Phiên bản máy phục vụ: 8.0.30
 -- Phiên bản PHP: 8.1.10
 
@@ -29,10 +29,19 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `comments` (
   `ID` int NOT NULL,
-  `Content` varchar(2048) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Content` varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `movieID` int NOT NULL,
   `userID` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `comments`
+--
+
+INSERT INTO `comments` (`ID`, `Content`, `Date`, `movieID`, `userID`) VALUES
+(1, 'I like this', '2024-05-15 11:21:32', 1, 3),
+(2, 'It\'s so good', '2024-05-15 11:21:32', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -42,7 +51,7 @@ CREATE TABLE `comments` (
 
 CREATE TABLE `genres` (
   `ID` int NOT NULL,
-  `Name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL
+  `Name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -63,21 +72,40 @@ INSERT INTO `genres` (`ID`, `Name`) VALUES
 
 CREATE TABLE `movies` (
   `ID` int NOT NULL,
-  `Name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Overview` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Overview` varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Trailer` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `Rate` float NOT NULL,
-  `Img` varchar(1024) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Type` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ReleaseYear` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL
+  `Type` enum('TV Shows','Movies') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Img` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ReleaseYear` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `movies`
 --
 
-INSERT INTO `movies` (`ID`, `Name`, `Overview`, `Rate`, `Img`, `Type`, `ReleaseYear`) VALUES
-(3, 'Movies m-2', 'Hi this is movies m-2', 7.4, 'movies/mv-it2.jpg', 'TV Shows', '2016'),
-(4, 'Movies m-1', 'Hi this is movies m-1', 8.5, 'movies/mv-it1.jpg', 'Movies', '2020');
+INSERT INTO `movies` (`ID`, `Name`, `Overview`, `Trailer`, `Rate`, `Type`, `Img`, `ReleaseYear`) VALUES
+(1, 'oblivion', 'The OverView of this Movies', '', 8.1, 'Movies', 'movies/mv1.jpg', '2013'),
+(2, 'into the wild', 'The OverView of this Movies', '', 7.8, 'Movies', 'movies/mv2.jpg', '2013'),
+(3, 'Die hard', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-item3.jpg', '2013'),
+(4, 'The walk', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-item4.jpg', '2013'),
+(5, 'blade runner  ', 'The OverView of this Movies', '', 7.3, 'Movies', 'movies/mv3.jpg', '2013'),
+(6, 'Mulholland pride', 'The OverView of this Movies', '', 7.2, 'Movies', 'movies/mv4.jpg', '2013'),
+(7, 'skyfall: evil of boss', 'The OverView of this Movies', '', 7, 'Movies', 'movies/mv5.jpg', '2013'),
+(8, 'Interstellar', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-item1.jpg', '2013'),
+(9, 'The revenant', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-item2.jpg', '2013'),
+(10, 'harry potter', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-it10.jpg', '2013'),
+(11, 'guardians galaxy', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-it11.jpg', '2013'),
+(12, 'the godfather', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-it12.jpg', '2013'),
+(13, 'blue velvet', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-item6.jpg', '2013'),
+(14, 'gravity', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-item7.jpg', '2013'),
+(15, 'southpaw', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-item8.jpg', '2013'),
+(16, 'jurassic park', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-it9.jpg', '2013'),
+(17, 'the forest', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-item9.jpg', '2013'),
+(18, 'spectre', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-item10.jpg', '2013'),
+(19, 'strager things', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-item11.jpg', '2013'),
+(20, 'la la land', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv-item12.jpg', '2013');
 
 -- --------------------------------------------------------
 
@@ -112,15 +140,16 @@ CREATE TABLE `users` (
   `ID` int NOT NULL,
   `Name` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `Password` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Username` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
+  `Username` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Img` varchar(1024) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `users`
 --
 
-INSERT INTO `users` (`ID`, `Name`, `Password`, `Username`) VALUES
-(3, 'Khôi Nguyên', '$2y$10$ATUqD4JZZmOcNlORCZXmdOuFpP/fQ/NUP6hCj0yJ.GSGQIeDFCzQ.', 'khnguyen');
+INSERT INTO `users` (`ID`, `Name`, `Password`, `Username`, `Img`) VALUES
+(3, 'Khôi Nguyên', '$2y$10$ATUqD4JZZmOcNlORCZXmdOuFpP/fQ/NUP6hCj0yJ.GSGQIeDFCzQ.', 'khnguyen', 'users/user-img.png');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -168,7 +197,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `genres`
@@ -180,7 +209,7 @@ ALTER TABLE `genres`
 -- AUTO_INCREMENT cho bảng `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT cho bảng `syn_movies_genres`

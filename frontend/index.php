@@ -15,7 +15,8 @@
     <!-- CSS files -->
     <link rel="stylesheet" href="assets/css/plugins.css">
     <link rel="stylesheet" href="assets/css/style.css">
-
+    <link rel="stylesheet" href="assets/plugins/fontAwesome/css/all.min.css">
+    
     <script src="shared/scripts/app.js"></script>
     <script src="shared/scripts/init.js"></script>
 </head>

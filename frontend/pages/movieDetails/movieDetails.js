@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     _init();
     _getGenres();
     // Đặt bình luận
-    // _getComments();
+    _getComments();
     // _sendComment();
 })
 
