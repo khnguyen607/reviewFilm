@@ -9,7 +9,7 @@ class BaseModel extends Database
     }
 
     // truy vấn sql
-    protected function _query($sql)
+    public function _query($sql)
     {
         return mysqli_query($this->connect, $sql);
     }

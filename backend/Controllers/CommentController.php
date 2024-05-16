@@ -32,7 +32,7 @@ class CommentController extends BaseController
     {
         $data = [
             'userID'      => $_POST['userID'],
-            'productID'      => $_POST['productID'],
+            'movieID'      => $_POST['movieID'],
             'Content'      => $_POST['Content'],
         ];
         $this->model->mInsert($data);
@@ -58,5 +58,30 @@ class CommentController extends BaseController
         header("Location: ../frontend/admin/?page=nutritionists");
     }
 
+    public function insertRating()
+    {
+        $id = $_GET['id'];
+        $Point = $_GET['rate'];
+        $sql = "INSERT INTO `rating`(`movieID`, `Point`) VALUES ($id, $Point)";
+        $this->model->_query($sql);
 
+        $sql = "UPDATE movies
+        SET Rate = (SELECT ROUND(AVG(Point), 1) AS PointAvg
+                    FROM rating
+                    WHERE movieID = movies.ID
+                    GROUP BY movieID)
+        WHERE ID = $id";
+
+        $this->model->_query($sql);
+        echo "true";
+    }
+
+    public function totalRating()
+    {
+        $id = $_GET['id'];
+        $sql = "SELECT COUNT(*) AS total FROM rating WHERE movieID = $id";
+        $data = mysqli_fetch_assoc($this->model->_query($sql));
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
 }

@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', async () => {
+    await Helper.fetchBackendLink()
     // Khởi tạo trang
     _init();
     _getGenres();
     // Đặt bình luận
     _getComments();
-    // _sendComment();
+    _sendComment();
 })
 
 async function _init() {
@@ -13,6 +14,9 @@ async function _init() {
     document.querySelector(".movie-img img").src = Helper.getLink(item.Img)
     document.querySelector("#overview .col-md-8 p").textContent = item.Overview
     document.querySelector("._ratePoint").textContent = item.Rate
+
+    var countRate = await Helper.fetchData(`comment&action=totalRating&id=${Helper.getParameter("id")}`)
+    document.querySelector(".rate .rv").textContent = countRate.total + " reviews"
 }
 
 async function _getGenres() {
@@ -29,41 +33,38 @@ async function _getGenres() {
 }
 
 async function _getComments() {
-    var items = await Helper.fetchData(`product&action=getComments&id=${Helper.getParameterByName("id")}`)
-    console.log(items);
-    var reviews = document.querySelector(".review_address_inner")
-    var cloneReview = document.querySelector(".review_address_inner .pro_review").cloneNode(true)
+    var items = await Helper.fetchData(`movie&action=getComments&id=${Helper.getParameter("id")}`)
+    document.querySelector("#reviews .topbar-filter span").textContent = items.length + " reviews"
+    var reviews = document.querySelector("._reviewsList")
+    var cloneReview = reviews.querySelector("._reviewsItem").cloneNode(true)
     reviews.innerHTML = ""
     items.forEach(item => {
         var review = cloneReview.cloneNode(true)
-        review.querySelector(".review_details h5").innerHTML = `<h5>${item.userName} - <span> ${item.DateTime}</span></h5>`
-        review.querySelector(".review_details p").textContent = item.Content
+        review.querySelector("h3").textContent = item.userName
+        review.querySelector(".time").textContent = item.Date
+        review.querySelector("._content").textContent = item.Content
+        review.querySelector("img").src = Helper.getLink(item.userImg)
         reviews.appendChild(review);
     });
 }
 
 async function _sendComment() {
-    document.querySelector('.comments-area form').addEventListener('submit', function (event) {
+    document.querySelector('#reviews form').addEventListener('submit', function (event) {
         event.preventDefault();
         // Get form data
         const formData = new FormData(this);
         formData.append("userID", Helper.getCookie("user_id"))
-        formData.append("productID", Helper.getParameterByName("id"))
+        formData.append("movieID", Helper.getParameter("id"))
         // Send form data using fetch
-        fetch('../../backend/?controller=comment&action=insert', {
+        fetch(Helper.backendLink + '?controller=comment&action=insert', {
             method: 'POST',
             body: formData
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json(); // Assuming response is JSON
-            })
+            .then(response => response.json())
             .then(data => {
                 if (data == true) {
                     location.reload()
-                    alert('Bình luận thành công')
+                    alert('Successfull!')
                 }
             })
             .catch(error => {

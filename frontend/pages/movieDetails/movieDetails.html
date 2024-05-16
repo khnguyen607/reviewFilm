@@ -53,16 +53,46 @@
                             </div>
                             <div class="rate-star">
                                 <p>Rate This Movie: </p>
-                                <i class="ion-ios-star"></i>
-                                <i class="ion-ios-star"></i>
-                                <i class="ion-ios-star"></i>
-                                <i class="ion-ios-star"></i>
-                                <i class="ion-ios-star"></i>
-                                <i class="ion-ios-star"></i>
-                                <i class="ion-ios-star"></i>
-                                <i class="ion-ios-star"></i>
+                                <i class="ion-ios-star-outline"></i>
+                                <i class="ion-ios-star-outline"></i>
+                                <i class="ion-ios-star-outline"></i>
+                                <i class="ion-ios-star-outline"></i>
+                                <i class="ion-ios-star-outline"></i>
+                                <i class="ion-ios-star-outline"></i>
+                                <i class="ion-ios-star-outline"></i>
+                                <i class="ion-ios-star-outline"></i>
+                                <i class="ion-ios-star-outline"></i>
                                 <i class="ion-ios-star-outline"></i>
                             </div>
+                            <script>
+                                // JavaScript
+                                const stars = document.querySelectorAll('.rate-star i');
+                                let selectedStarIndex = -1;
+                                stars.forEach((star, index) => {
+                                    star.addEventListener('mouseover', () => {
+                                        for (let i = 0; i <= index; i++) {
+                                            stars[i].classList.remove('ion-ios-star-outline');
+                                            stars[i].classList.add('ion-ios-star');
+                                        }
+                                    });
+
+                                    star.addEventListener('mouseout', () => {
+                                        if (index !== selectedStarIndex) {
+                                            stars.forEach(s => {
+                                                s.classList.remove('ion-ios-star');
+                                                s.classList.add('ion-ios-star-outline');
+                                            });
+                                        }
+                                    });
+
+                                    star.addEventListener('click', async () => {
+                                        selectedStarIndex = index;
+                                        alert('You rated this movie: ' + (index + 1));
+                                        await Helper.fetchData(`comment&action=insertRating&id=${Helper.getParameter("id")}&rate=${index + 1}`);
+                                        location.reload();
+                                    });
+                                });
+                            </script>
                         </div>
                         <div class="movie-tabs">
                             <div class="tabs">
@@ -113,13 +143,19 @@
                                     </div>
                                     <div id="reviews" class="tab review">
                                         <div class="row">
-                                            <div class="rv-hd">
-                                                <div class="div">
-                                                    <h3>Related Movies To</h3>
-                                                    <h2>Skyfall: Quantum of Spectre</h2>
+                                            <form>
+                                                <div class="rv-hd">
+                                                    <div class="div">
+                                                        <h3>Comment Section Of</h3>
+                                                        <h2>Skyfall: Quantum of Spectre</h2>
+                                                    </div>
+                                                    <button type="submit" class="redbtn">Write Review</button>
                                                 </div>
-                                                <a href="#" class="redbtn">Write Review</a>
-                                            </div>
+                                                <div class="form-style-1">
+                                                    <label for="_commentContent">Comment: </label>
+                                                    <input type="text" id="_commentContent" name="Content" required>
+                                                </div>
+                                            </form>
                                             <div class="topbar-filter">
                                                 <p>Found <span>56 reviews</span> in total</p>
                                                 <label>Filter by:</label>
@@ -157,7 +193,8 @@
                                                             </p>
                                                         </div>
                                                     </div>
-                                                    <p>This is by far one of my favorite movies from the MCU. The
+                                                    <p class="_content">This is by far one of my favorite movies from
+                                                        the MCU. The
                                                         introduction of new Characters both good and bad also makes the
                                                         movie more exciting. giving the characters more of a back story
                                                         can
@@ -179,7 +216,7 @@
                                             </div>
 
 
-                                            <div class="topbar-filter">
+                                            <!-- <div class="topbar-filter">
                                                 <label>Reviews per page:</label>
                                                 <select>
                                                     <option value="range">5 Reviews</option>
@@ -195,7 +232,7 @@
                                                     <a href="#">6</a>
                                                     <a href="#"><i class="ion-arrow-right-b"></i></a>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                     <div id="moviesrelated" class="tab">

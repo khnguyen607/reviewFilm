@@ -31,10 +31,10 @@ class MovieModel extends BaseModel
 
     public function mGetComments($id)
     {
-        $sql = "SELECT comments.*, users.Name AS userName
+        $sql = "SELECT comments.*, users.Name AS userName, users.Img AS userImg
                 FROM `comments` 
                 INNER JOIN users ON comments.userID = users.ID
-                WHERE comments.productID=$id";
+                WHERE comments.movieID=$id";
         $query = $this->_query($sql);
         $data = [];
 
