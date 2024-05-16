@@ -46,15 +46,26 @@ class UserController extends BaseController
 
     public function update()
     {
-        $userID = $_GET['userID'];
-        $data = [
-            'Name'         => $_POST['Name'],
-            'Tier'         => $_POST['Tier'],
-        ];
-        if ($_POST['Password'] != "") $data['Password'] = $_POST['Password'];
+        $id = $_GET['id'];
+        if (isset($_POST['oldPassword'])) {
+            $data = [
+                'Username'  => $_POST['Username'],
+                'Password'  => $_POST['oldPassword']
+            ];
+            if ($this->model->isValidUser($data)) {
+                $data['Password'] = $_POST['newPassword'];
+                $this->model->mUpdate($id, $data);
+                exit("true");
+            } else {
+                exit("Password is wrong");
+            }
+        }
 
-        $this->model->mUpdate($userID, $data);
-        header("Location: ../frontend/admin/?page=users");
+        $data = [];
+        if ($_POST['Name']) $data['Name'] = $_POST['Name'];
+        // if ($_POST['Username']) $data['Username'] = $_POST['Username'];
+        $this->model->mUpdate($id, $data);
+        echo 'true';
     }
 
     public function delete()
@@ -102,5 +113,23 @@ class UserController extends BaseController
         if (isset($_POST['Address']) && ($_POST['Address'] != "")) $data['Address'] = $_POST['Address'];
         $this->model->mUpdate($id, $data);
         header("Location: ../frontend/admin/?page=users");
+    }
+
+    public function movieFavorite()
+    {
+        $id = $_GET['id'];
+        $data = $this->model->mMovieComment($id);
+        // Trả về dữ liệu dưới dạng JSON
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
+    public function movieComment()
+    {
+        $id = $_GET['id'];
+        $data = $this->model->mMovieComment($id);
+        // Trả về dữ liệu dưới dạng JSON
+        header('Content-Type: application/json');
+        echo json_encode($data);
     }
 }

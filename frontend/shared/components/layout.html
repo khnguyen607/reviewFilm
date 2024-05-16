@@ -36,13 +36,20 @@
         </nav>
 
         <!-- top search form -->
-        <div class="top-search">
-            <select>
-                <option value="united">TV show</option>
-                <option value="saab">Others</option>
-            </select>
-            <input type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for">
-        </div>
+        <form action="./">
+            <div class="top-search">
+                <input type="text" name="page" value="movies" class="overlay">
+                <select name="movieType">
+                    <option value="all">All</option>
+                    <option value="TV Shows">TV Shows</option>
+                    <option value="Movies">Movies</option>
+                </select>
+                <input name="q" type="text"
+                    placeholder="Search for a movie, TV Show or celebrity that you are looking for">
+            </div>
+            <button type="submit" class="overlay">gửi</button>
+        </form>
+
     </div>
 </header>
 

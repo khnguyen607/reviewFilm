@@ -110,4 +110,19 @@ class MovieController extends BaseController
         }
         return null;
     }
+
+    public function allsFK()
+    {
+        $data = $this->model->mAllsFK();
+        // Trả về dữ liệu dưới dạng JSON
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
+    public function addView()
+    {
+        $id = $_GET['id'];
+        $sql = "UPDATE `movies` SET `view` = `view` + 1 WHERE `ID` = $id";
+        $this->model->_query($sql);
+    }
 }

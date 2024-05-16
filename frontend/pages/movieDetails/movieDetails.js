@@ -9,8 +9,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 })
 
 async function _init() {
+    await Helper.fetchData(`movie&action=addView&id=${Helper.getParameter("id")}`)
     var item = await Helper.fetchData(`movie&action=find&id=${Helper.getParameter("id")}`)
     document.querySelector(".bd-hd").innerHTML = capitalizeFirst(item.Name) + ` <span>${item.ReleaseYear}</span>`
+    document.querySelector("#reviews .rv-hd h2").innerHTML = capitalizeFirst(item.Name)
+    // document.querySelector("#moviesrelated h2").innerHTML = capitalizeFirst(item.Name)
     document.querySelector(".movie-img img").src = Helper.getLink(item.Img)
     document.querySelector("#overview .col-md-8 p").textContent = item.Overview
     document.querySelector("._ratePoint").textContent = item.Rate
@@ -34,7 +37,7 @@ async function _getGenres() {
 
 async function _getComments() {
     var items = await Helper.fetchData(`movie&action=getComments&id=${Helper.getParameter("id")}`)
-    document.querySelector("#reviews .topbar-filter span").textContent = items.length + " reviews"
+    document.querySelector("#reviews .topbar-filter span").textContent = items.length + " comments"
     var reviews = document.querySelector("._reviewsList")
     var cloneReview = reviews.querySelector("._reviewsItem").cloneNode(true)
     reviews.innerHTML = ""
@@ -70,6 +73,7 @@ async function _sendComment() {
             .catch(error => {
                 // Handle errors
                 console.error('There was a problem with the fetch operation:', error);
+                alert('Please login to continue');
             });
     });
 }

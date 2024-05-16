@@ -21,13 +21,13 @@
 					<div class="topbar-filter">
 						<p>Found <span>1,608 movies</span> in total</p>
 						<label>Sort by:</label>
-						<select>
-							<option value="popularity">Popularity Descending</option>
-							<option value="popularity">Popularity Ascending</option>
-							<option value="rating">Rating Descending</option>
-							<option value="rating">Rating Ascending</option>
-							<option value="date">Release date Descending</option>
-							<option value="date">Release date Ascending</option>
+						<select id="_sortBy">
+							<option value="popularityDesc" selected>Popularity Descending</option>
+							<option value="popularityAsc">Popularity Ascending</option>
+							<option value="ratingDesc">Rating Descending</option>
+							<option value="ratingAsc">Rating Ascending</option>
+							<option value="dateDesc">Release date Descending</option>
+							<option value="dateAsc">Release date Ascending</option>
 						</select>
 					</div>
 					<div class="flex-wrap-movielist dataList">
@@ -68,13 +68,13 @@
 					<div class="sidebar">
 						<div class="searh-form">
 							<h4 class="sb-title">Search for movie</h4>
-							<form class="form-style-1" action="#">
+							<form class="form-style-1" id="filterForm">
 								<div class="row">
 									<div class="col-md-12 form-it">
 										<label>Movie name</label>
-										<input type="text" placeholder="Enter keywords">
+										<input type="text" placeholder="Enter keywords" name="Name">
 									</div>
-									<div class="col-md-12 form-it">
+									<!-- <div class="col-md-12 form-it">
 										<label>Genres & Subgenres</label>
 										<div class="group-ip">
 											<select name="skills" multiple="" class="ui fluid dropdown">
@@ -86,31 +86,45 @@
 												<option value="Action5">Action 5</option>
 											</select>
 										</div>
+									</div> -->
+									<div class="col-md-12 form-it">
+										<label>Genres</label>
+										<select name="genre">
+											<option value="all">All</option>
+										</select>
 									</div>
 									<div class="col-md-12 form-it">
-										<label>Rating Range</label>
-										<select>
-											<option value="range">-- Select the rating range below --</option>
-											<option value="saab">-- Select the rating range below --</option>
+										<label>Movie Type</label>
+										<select name="movieType">
+											<option value="all">All</option>
+											<option value="TV Shows">TV Shows</option>
+											<option value="Movies">Movies</option>
 										</select>
+									</div>
+									<!-- <div class="col-md-12 form-it">
+										<label>Rating Range</label>
+										<div class="row">
+											<div class="col-md-5">
+												<input type="number" min="0" max="10" step="0.5" placeholder="From">
+											</div>
+											<div class="col-md-2"><label>to</label></div>
+											<div class="col-md-5">
+												<input type="number" min="1" max="10" step="0.5" placeholder="To">
+											</div>
+										</div>
 									</div>
 									<div class="col-md-12 form-it">
 										<label>Release Year</label>
 										<div class="row">
-											<div class="col-md-6">
-												<select>
-													<option value="range">From</option>
-													<option value="number">10</option>
-												</select>
+											<div class="col-md-5">
+												<input type="number" min="0" placeholder="From">
 											</div>
-											<div class="col-md-6">
-												<select>
-													<option value="range">To</option>
-													<option value="number">20</option>
-												</select>
+											<div class="col-md-2"><label>to</label></div>
+											<div class="col-md-5">
+												<input type="number" min="0" placeholder="To">
 											</div>
 										</div>
-									</div>
+									</div> -->
 									<div class="col-md-12 ">
 										<input class="submit" type="submit" value="submit">
 									</div>

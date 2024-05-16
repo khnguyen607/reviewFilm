@@ -99,4 +99,36 @@ class UserModel extends BaseModel
         setcookie("user_id", $user['ID'], time() + 3600, "/");
         return True;
     }
+
+    public function mMovieComment($id)
+    {
+        $sql = "SELECT comments.*, movies.Name AS movieName, movies.ReleaseYear AS movieYear, movies.Img AS movieImg
+                FROM `comments`
+                INNER JOIN movies ON comments.movieID = movies.ID
+                WHERE userID = $id";
+        $query = $this->_query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            array_push($data, $row);
+        }
+
+        return $data;
+    }
+
+    public function mMovieFavorite($id)
+    {
+        $sql = "SELECT comments.*, movies.Name AS movieName, movies.ReleaseYear AS movieYear, movies.Img AS movieImg
+                FROM `comments`
+                INNER JOIN movies ON comments.movieID = movies.ID
+                WHERE userID = $id";
+        $query = $this->_query($sql);
+        $data = [];
+
+        while ($row = mysqli_fetch_assoc($query)) {
+            array_push($data, $row);
+        }
+
+        return $data;
+    }
 }
