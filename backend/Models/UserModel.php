@@ -102,10 +102,10 @@ class UserModel extends BaseModel
 
     public function mMovieComment($id)
     {
-        $sql = "SELECT comments.*, movies.Name AS movieName, movies.ReleaseYear AS movieYear, movies.Img AS movieImg
-                FROM `comments`
-                INNER JOIN movies ON comments.movieID = movies.ID
-                WHERE userID = $id";
+        $sql = "SELECT movies.*
+                FROM movies
+                INNER JOIN moviefavorite ON movies.ID = moviefavorite.movieID
+                WHERE moviefavorite.userID = $id";
         $query = $this->_query($sql);
         $data = [];
 
