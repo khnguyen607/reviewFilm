@@ -132,4 +132,13 @@ class UserController extends BaseController
         header('Content-Type: application/json');
         echo json_encode($data);
     }
+
+    public function addMovieFavorite()
+    {
+        $userID = $_GET['userID'];
+        $movieID = $_GET['movieID'];
+        $sql = "INSERT INTO `moviefavorite`(`userID`, `movieID`)
+        VALUES ('$userID','$movieID";
+        $this->model->_query($sql);
+    }
 }

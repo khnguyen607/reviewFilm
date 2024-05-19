@@ -6,6 +6,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Đặt bình luận
     _getComments();
     _sendComment();
+
+    document.querySelector("#_addFavorite").addEventListener('click', async () => {
+        Helper.fetchData(`user&action=addView&movieID=${Helper.getParameter("id")}&userID=${Helper.getCookie("user_id")}`)
+        alert('Thêm thành công phim vào danh sách yêu thích')
+    })
 })
 
 async function _init() {
