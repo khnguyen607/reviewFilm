@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     _sendComment();
 
     document.querySelector("#_addFavorite").addEventListener('click', async () => {
-        Helper.fetchData(`user&action=addView&movieID=${Helper.getParameter("id")}&userID=${Helper.getCookie("user_id")}`)
-        alert('Thêm thành công phim vào danh sách yêu thích')
+        Helper.fetchData(`user&action=addMovieFavorite&movieID=${Helper.getParameter("id")}&userID=${Helper.getCookie("user_id")}`)
+        alert('Movie added to your favorite list successfully')
     })
 })
 

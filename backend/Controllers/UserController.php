@@ -118,7 +118,7 @@ class UserController extends BaseController
     public function movieFavorite()
     {
         $id = $_GET['id'];
-        $data = $this->model->mMovieComment($id);
+        $data = $this->model->mMovieFavorite($id);
         // Trả về dữ liệu dưới dạng JSON
         header('Content-Type: application/json');
         echo json_encode($data);
@@ -138,7 +138,7 @@ class UserController extends BaseController
         $userID = $_GET['userID'];
         $movieID = $_GET['movieID'];
         $sql = "INSERT INTO `moviefavorite`(`userID`, `movieID`)
-        VALUES ('$userID','$movieID";
+        VALUES ($userID,$movieID)";
         $this->model->_query($sql);
     }
 }

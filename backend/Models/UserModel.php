@@ -100,7 +100,7 @@ class UserModel extends BaseModel
         return True;
     }
 
-    public function mMovieComment($id)
+    public function mMovieFavorite($id)
     {
         $sql = "SELECT movies.*
                 FROM movies
@@ -116,7 +116,7 @@ class UserModel extends BaseModel
         return $data;
     }
 
-    public function mMovieFavorite($id)
+    public function mMovieComment($id)
     {
         $sql = "SELECT comments.*, movies.Name AS movieName, movies.ReleaseYear AS movieYear, movies.Img AS movieImg
                 FROM `comments`
