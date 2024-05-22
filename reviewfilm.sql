@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th5 16, 2024 lúc 11:45 AM
+-- Thời gian đã tạo: Th5 19, 2024 lúc 10:37 AM
 -- Phiên bản máy phục vụ: 8.0.30
 -- Phiên bản PHP: 8.1.10
 
@@ -44,7 +44,9 @@ INSERT INTO `comments` (`ID`, `Content`, `Date`, `movieID`, `userID`) VALUES
 (2, 'It\'s so good', '2024-05-15 11:21:32', 1, 3),
 (3, '', '2024-05-16 14:45:24', 1, 3),
 (4, 'Good!', '2024-05-16 14:45:50', 1, 3),
-(5, 'Good2', '2024-05-16 14:46:08', 1, 3);
+(5, 'Good2', '2024-05-16 14:46:08', 1, 3),
+(6, 'test', '2024-05-17 14:10:13', 1, 3),
+(7, 'goood!', '2024-05-17 14:10:39', 13, 3);
 
 -- --------------------------------------------------------
 
@@ -79,6 +81,16 @@ CREATE TABLE `moviefavorite` (
   `movieID` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `moviefavorite`
+--
+
+INSERT INTO `moviefavorite` (`ID`, `userID`, `movieID`) VALUES
+(1, 3, 14),
+(2, 3, 13),
+(3, 3, 20),
+(4, 3, 12);
+
 -- --------------------------------------------------------
 
 --
@@ -102,19 +114,19 @@ CREATE TABLE `movies` (
 --
 
 INSERT INTO `movies` (`ID`, `Name`, `Overview`, `Trailer`, `Rate`, `Type`, `Img`, `ReleaseYear`, `View`) VALUES
-(1, 'oblivion', 'The OverView of this Movies', '', 7.4, 'Movies', 'movies/mv1.jpg', '2013', 4),
+(1, 'oblivion', 'The OverView of this Movies', '', 7.5, 'Movies', 'movies/mv1.jpg', '2013', 10),
 (2, 'into the wild', 'The OverView of this Movies', '', 0, 'Movies', 'movies/mv2.jpg', '2013', 0),
 (3, 'Die hard', 'The OverView of this Movies', '', 0, 'Movies', 'movies/mv-item3.jpg', '2013', 0),
-(4, 'The walk', 'The OverView of this Movies', '', 0, 'TV Shows', 'movies/mv-item4.jpg', '2013', 1),
-(5, 'blade runner  ', 'The OverView of this Movies', '', 0, 'Movies', 'movies/mv3.jpg', '2013', 0),
-(6, 'Mulholland pride', 'The OverView of this Movies', '', 8, 'Movies', 'movies/mv4.jpg', '2013', 5),
+(4, 'The walk', 'The OverView of this Movies', '', 0, 'TV Shows', 'movies/mv-item4.jpg', '2013', 3),
+(5, 'blade runner  ', 'The OverView of this Movies', '', 0, 'Movies', 'movies/mv3.jpg', '2013', 1),
+(6, 'Mulholland pride', 'The OverView of this Movies', '', 8, 'Movies', 'movies/mv4.jpg', '2013', 6),
 (7, 'skyfall: evil of boss', 'The OverView of this Movies', '', 6.9, 'Movies', 'movies/mv5.jpg', '2013', 0),
 (8, 'Interstellar', 'The OverView of this Movies', '', 0, 'Movies', 'movies/mv-item1.jpg', '2013', 0),
 (9, 'The revenant', 'The OverView of this Movies', '', 0, 'TV Shows', 'movies/mv-item2.jpg', '2013', 0),
-(10, 'harry potter', 'The OverView of this Movies', '', 8.3, 'Movies', 'movies/mv-it10.jpg', '2013', 4),
+(10, 'harry potter', 'The OverView of this Movies', '', 8.3, 'Movies', 'movies/mv-it10.jpg', '2013', 7),
 (11, 'guardians galaxy', 'The OverView of this Movies', '', 0, 'Movies', 'movies/mv-it11.jpg', '2013', 0),
 (12, 'the godfather', 'The OverView of this Movies', '', 0, 'Movies', 'movies/mv-it12.jpg', '2013', 0),
-(13, 'blue velvet', 'The OverView of this Movies', '', 0, 'Movies', 'movies/mv-item6.jpg', '2013', 0),
+(13, 'blue velvet', 'The OverView of this Movies', '', 7.5, 'Movies', 'movies/mv-item6.jpg', '2013', 5),
 (14, 'gravity', 'The OverView of this Movies', '', 0, 'Movies', 'movies/mv-item7.jpg', '2013', 0),
 (15, 'southpaw', 'The OverView of this Movies', '', 0, 'Movies', 'movies/mv-item8.jpg', '2013', 0),
 (16, 'jurassic park', 'The OverView of this Movies', '', 0, 'Movies', 'movies/mv-it9.jpg', '2013', 0),
@@ -165,7 +177,10 @@ INSERT INTO `rating` (`ID`, `movieID`, `Point`) VALUES
 (23, 6, 9),
 (24, 6, 7),
 (25, 6, 9),
-(26, 6, 7);
+(26, 6, 7),
+(27, 13, 5),
+(28, 1, 9),
+(29, 13, 10);
 
 -- --------------------------------------------------------
 
@@ -209,7 +224,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`ID`, `Name`, `Password`, `Username`, `Img`) VALUES
-(3, 'Khôi Nguyên', '$2y$10$URoqogsvtoxtKpzT6XHa7eP7OdX89rvCGXOkwqCKn5xo54LsiPSz6', 'khnguyen', 'users/user-img.png');
+(3, 'Tuấn Anh', '$2y$10$dJp3b7u5Xw9QN2gaZzB1W.QVOZ4Ml2y4wUM91s7MR3qcb37ou0vn6', 'khnguyen', 'users/user-img.png');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -272,7 +287,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `genres`
@@ -284,7 +299,7 @@ ALTER TABLE `genres`
 -- AUTO_INCREMENT cho bảng `moviefavorite`
 --
 ALTER TABLE `moviefavorite`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `movies`
@@ -296,7 +311,7 @@ ALTER TABLE `movies`
 -- AUTO_INCREMENT cho bảng `rating`
 --
 ALTER TABLE `rating`
-  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `ID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT cho bảng `syn_movies_genres`
